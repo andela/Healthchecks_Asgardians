@@ -2,6 +2,7 @@ __pycache__/
 *.pyc
 .coverage
 hc.sqlite
+.idea
 hc/local_settings.py
 static-collected
 
