@@ -1,5 +1,7 @@
 # healthchecks
 
+[![Build Status](https://travis-ci.org/andela/Healthchecks_Asgardians.svg?branch=master)](https://travis-ci.org/andela/Healthchecks_Asgardians)
+
 ![Screenshot of Welcome page](/stuff/screenshots/welcome.png?raw=true "Welcome Page")
 
 ![Screenshot of My Checks page](/stuff/screenshots/my_checks.png?raw=true "My Checks Page")
