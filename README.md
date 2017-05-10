@@ -1,5 +1,7 @@
 # healthchecks
 
+[![Coverage Status](https://coveralls.io/repos/github/andela/Healthchecks_Asgardians/badge.svg?branch=master)](https://coveralls.io/github/andela/Healthchecks_Asgardians?branch=master)
+
 ![Screenshot of Welcome page](/stuff/screenshots/welcome.png?raw=true "Welcome Page")
 
 ![Screenshot of My Checks page](/stuff/screenshots/my_checks.png?raw=true "My Checks Page")
