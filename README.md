@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/andela/Healthchecks_Asgardians.svg?branch=master)](https://travis-ci.org/andela/Healthchecks_Asgardians)
 
+
+
 [![Code Issues](https://www.quantifiedcode.com/api/v1/project/3881de30758e48fdb432eefe9f321896/badge.svg)](https://www.quantifiedcode.com/app/project/3881de30758e48fdb432eefe9f321896)
 
 ![Screenshot of Welcome page](/stuff/screenshots/welcome.png?raw=true "Welcome Page")
