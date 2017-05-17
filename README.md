@@ -1,4 +1,5 @@
 # healthchecks
+[![Build Status](https://travis-ci.org/andela/Healthchecks_Asgardians.svg?branch=master)](https://travis-ci.org/andela/Healthchecks_Asgardians)
 
 [![Coverage Status](https://coveralls.io/repos/github/andela/Healthchecks_Asgardians/badge.svg?branch=master)](https://coveralls.io/github/andela/Healthchecks_Asgardians?branch=master)
 [![Code Issues](https://www.quantifiedcode.com/api/v1/project/3881de30758e48fdb432eefe9f321896/badge.svg)](https://www.quantifiedcode.com/app/project/3881de30758e48fdb432eefe9f321896)
