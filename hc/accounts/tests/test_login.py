@@ -20,7 +20,8 @@ class LoginTestCase(TestCase):
         assert r.status_code == 302
 
         ### Assert that a user was created
-
+        self.assertEqual("alice@example.org", User.objects.get(pk
+                                                         =1).email)
         # And email sent
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, 'Log in to healthchecks.io')
@@ -34,4 +35,3 @@ class LoginTestCase(TestCase):
         assert "bad_link" not in self.client.session
 
         ### Any other tests?
-
