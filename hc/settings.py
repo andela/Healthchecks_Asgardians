@@ -82,6 +82,7 @@ TEST_RUNNER = 'hc.api.tests.CustomRunner'
 
 # Default database engine is SQLite. So one can just check out code,
 # install requirements.txt and do manage.py runserver and it works
+
 if os.environ.get("PLATFORM") == "HEROKU":
     databse_url = os.environ.get("DATABASE_URL")
     DATABASES = {
