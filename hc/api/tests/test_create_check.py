@@ -76,7 +76,7 @@ class CreateCheckTestCase(BaseTestCase):
         self.assertEqual(r.json()['error'], "wrong api_key")
 
     def test_it_handles_invalid_json(self):
-        ### Make the post request with invalid json data type
+        # Make the post request with invalid json data type
 
         payload = {"api_key": "abc", "name": "Foo"}
 
@@ -98,4 +98,18 @@ class CreateCheckTestCase(BaseTestCase):
                   expected_error="name is not a string")
 
     ### Test for the assignment of channels
-    ### Test for the 'timeout is too small' and 'timeout is too large' errors
+
+    # Test for the 'timeout is too small' 
+    def test_timeout_is_too_small(self):
+        r = self.post({
+            "api_key": "abc",
+            "name": "Foo",
+            "tags": "bar,baz",
+            "timeout": 59,
+            "grace": 60
+        })
+
+        self.assertEqual(r.status_code, 400)
+        self.assertEqual(r.json()['error'], "timeout is too small")
+    
+    
