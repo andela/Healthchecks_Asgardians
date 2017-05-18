@@ -141,6 +141,11 @@ STATICFILES_FINDERS = (
 )
 COMPRESS_OFFLINE = True
 
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 EMAIL_BACKEND = "djmail.backends.default.EmailBackend"
 
 # Slack integration -- override these in local_settings
