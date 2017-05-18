@@ -64,8 +64,6 @@ class CreateCheckTestCase(BaseTestCase):
 
     def test_it_handles_missing_request_body(self):
 
-        # import pdb; pdb.set_trace();
-        # self.assertEqual(r['error'], 400)
         # print(vars(r))
 
         # Make the post request with a missing body and get the response
@@ -98,6 +96,26 @@ class CreateCheckTestCase(BaseTestCase):
                   expected_error="name is not a string")
 
     ### Test for the assignment of channels
+    def test_assignment_of_channels(self):
+        # channel1 = Channel(user=self.alice, kind="pushbullet", value="test-token")
+        # channel1.save()
+        # # channel2 = Channel(user=self.alice, kind="slack", value="test-token")
+        # # channel2.save()
+        # # # no_of_channels = channels.count()
+        # # print(channels)
+
+        # payload = json.dumps({
+        #     "api_key": "abc",
+        #     "name": "Foo",
+        #     "channels": "*"
+        # })
+
+        # r = self.client.post(self.URL, payload,
+        #                      content_type="application/json")
+
+        # q = Check.objects.get(user=self.alice)
+        # print(q.channel_set)
+
 
     # Test for the 'timeout is too small' 
     def test_timeout_is_too_small(self):
