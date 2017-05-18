@@ -15,11 +15,11 @@ class CreateCheckTestCase(BaseTestCase):
                              content_type="application/json")
 
         if expected_error:
-            
+
             # Assert that the expected error is the response error
             self.assertEqual(r.status_code, 400)
             self.assertEqual(r.json()['error'], expected_error)
-            
+
         return r
 
     def test_it_works(self):
@@ -97,6 +97,7 @@ class CreateCheckTestCase(BaseTestCase):
 
     ### Test for the assignment of channels
     def test_assignment_of_channels(self):
+        pass
         # channel1 = Channel(user=self.alice, kind="pushbullet", value="test-token")
         # channel1.save()
         # # channel2 = Channel(user=self.alice, kind="slack", value="test-token")
@@ -116,9 +117,8 @@ class CreateCheckTestCase(BaseTestCase):
         # q = Check.objects.get(user=self.alice)
         # print(q.channel_set)
 
-
-    # Test for the 'timeout is too small' 
     def test_timeout_is_too_small(self):
+        # Test for the 'timeout is too small'
         r = self.post({
             "api_key": "abc",
             "name": "Foo",
@@ -129,7 +129,7 @@ class CreateCheckTestCase(BaseTestCase):
 
         self.assertEqual(r.status_code, 400)
         self.assertEqual(r.json()['error'], "timeout is too small")
-    
+
     # Test for the 'timeout is too large'
     def test_timeout_is_too_large(self):
         r = self.post({
