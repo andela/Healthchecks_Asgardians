@@ -45,9 +45,9 @@ class AddChannelTestCase(BaseTestCase):
 
         url = "/integrations/{}/checks/".format(self.new_channel1.code)
 
-        self.client.login(username="bob@example.org", password="password")
+        self.client.login(username="bob@example.org", password="password")  # Team member log-in
         response = self.client.get(url)
-        self.assertContains(response, "Assign Checks to Channel", status_code = 200)
+        self.assertContains(response, "Assign Checks to Channel", status_code=200)
 
     # Test that bad kinds don't work
     def test_bad_kinds_dont_work(self):
