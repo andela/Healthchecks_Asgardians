@@ -21,7 +21,7 @@ class LoginTestCase(TestCase):
 
         ### Assert that a user was created
         self.assertEqual("alice@example.org",
-                         User.objects.get(pk=1).email)
+                         User.objects.filter(id=1)[0].email)
         # And email sent
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, 'Log in to healthchecks.io')
