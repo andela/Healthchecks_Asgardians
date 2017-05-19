@@ -85,5 +85,16 @@ class PingTestCase(TestCase):
 
         self.check.refresh_from_db()
         assert self.check.status == "up"
-    ### Test that a post to a ping works
-    ### Test that the csrf_client head works
+
+    def test_post_to_ping_works(self):
+
+        # Test that a post to a ping works
+        r = self.client.post("/ping/%s/" % self.check.code)
+        assert r.status_code == 200
+
+        self.check.refresh_from_db()
+        assert self.check.status == "up"
+
+    def test_csrf_client_head_works(self):
+
+        # Test that the csrf_client head works
