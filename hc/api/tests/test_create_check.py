@@ -95,27 +95,23 @@ class CreateCheckTestCase(BaseTestCase):
         self.post({"api_key": "abc", "name": False},
                   expected_error="name is not a string")
 
-    ### Test for the assignment of channels
+    # Test for the assignment of channels
     def test_assignment_of_channels(self):
-        pass
-        # channel1 = Channel(user=self.alice, kind="pushbullet", value="test-token")
-        # channel1.save()
-        # # channel2 = Channel(user=self.alice, kind="slack", value="test-token")
-        # # channel2.save()
-        # # # no_of_channels = channels.count()
-        # # print(channels)
+        channel1 = Channel(user=self.alice, kind="pushbullet", value="test-token")
+        channel1.save()
 
-        # payload = json.dumps({
-        #     "api_key": "abc",
-        #     "name": "Foo",
-        #     "channels": "*"
-        # })
+        payload = json.dumps({
+            "api_key": "abc",
+            "name": "Foo",
+            "channels": "*"
+        })
 
-        # r = self.client.post(self.URL, payload,
-        #                      content_type="application/json")
+        r = self.client.post(self.URL, payload,
+                             content_type="application/json")
 
-        # q = Check.objects.get(user=self.alice)
-        # print(q.channel_set)
+        q = Check.objects.get(user=self.alice)
+        no_of_channels = q.channel_set.count()
+        self.assertGreater(no_of_channels, 0)
 
     def test_timeout_is_too_small(self):
         # Test for the 'timeout is too small'
