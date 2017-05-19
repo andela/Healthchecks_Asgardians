@@ -74,6 +74,16 @@ class PingTestCase(TestCase):
         r = self.client.get("/ping/%s/" % self.check.code)
         assert "no-cache" in r.get("Cache-Control")
 
-    ### Test that when a ping is made a check with a paused status changes status
+    def test_it_works_with_paused_check(self):
+
+        # Test that when a ping is made a check with a paused status changes status
+        self.check.status = "paused"
+
+        r = self.client.get("/ping/%s/" % self.check.code)
+
+        assert r.status_code == 200
+
+        self.check.refresh_from_db()
+        assert self.check.status == "up"
     ### Test that a post to a ping works
     ### Test that the csrf_client head works
