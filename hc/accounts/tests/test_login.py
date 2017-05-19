@@ -27,8 +27,9 @@ class LoginTestCase(TestCase):
         ### Assert contents of the email body
         self.assertTrue(mail.outbox[0].body)
         ### Assert that check is associated with the new user
-        self.assertEqual(session["welcome_code"].replace('-', ''),
-                         Check.objects.filter(user_id=1)[0].code.hex)
+        check2 = Check.objects.get(code=check.code)
+        self.assertTrue(check2.user)
+    
 
     def test_it_pops_bad_link_from_session(self):
         self.client.session["bad_link"] = True
