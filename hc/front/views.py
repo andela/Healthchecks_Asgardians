@@ -60,6 +60,21 @@ def my_checks(request):
     return render(request, "front/my_checks.html", ctx)
 
 
+@login_required
+def failed_jobs(request):
+    q = Check.objects.filter(status='up').order_by("created")
+    checks = list(q)
+
+    #counter = Counter()
+    #down_tags, grace_tags = set(), set()
+    ctx = {
+        "page": "failed_jobs",
+        "checks": checks,
+        "ping_endpoint": settings.PING_ENDPOINT
+    }
+
+    return render(request, "front/my_failed_jobs.html", ctx)
+
 def _welcome_check(request):
     check = None
     if "welcome_code" in request.session:
