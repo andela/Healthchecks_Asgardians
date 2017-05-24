@@ -62,11 +62,12 @@ def my_checks(request):
 
 @login_required
 def failed_jobs(request):
-    q = Check.objects.filter(status='up').order_by("created")
-    checks = list(q)
-
-    #counter = Counter()
-    #down_tags, grace_tags = set(), set()
+    q = Check.objects.all().order_by("created")
+    checks = []
+    for check in q:
+        status = check.get_status()
+        if status == "down":
+            checks.append(check)
     ctx = {
         "page": "failed_jobs",
         "checks": checks,
