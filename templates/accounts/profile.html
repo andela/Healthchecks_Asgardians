@@ -26,40 +26,22 @@
                     {% csrf_token %}
                     <h2>Reports</h2>
                     <label>
-                        <input
-                            name="reports_allowed"
-                            type="checkbox"
-                            {% if profile.reports_allowed %} checked {% endif %}>
-                        Send Me Reports
+                        <input id = "send_report" name="reports_allowed" type="checkbox" {% if profile.reports_allowed %} checked {% endif %}> Send Me Reports
                     </label>
-                    <h2>Report Frequency</h2>
-                    <div>
-                        <input
-                            name="reports_allowed"
-                            type="radio"
-                            value="daily"
-                            class="radio-box"
-                            {% if profile.reports_allowed %} checked {% endif %}/>
-                        <label class="space-radio-buttons">Daily</label>
-                        <input
-                            name="reports_allowed"
-                            type="radio"
-                            value="weekly"
-                            class="radio-box"
-                            {% if profile.reports_allowed %} checked {% endif %}/>
+
+                    <div id="frequency" {% if not profile.reports_allowed %} style="display: none" {% endif %}>
+                        <h2>Report Frequency</h2>
+                        <label class="space-radio-buttons">
+                        <input id = "daily" name="frequency" type="radio" value="daily" class="radio-box" />Daily</label>
+
+                        <input  id = "weekly" name="frequency" type="radio" value="weekly" class="radio-box" />
                         <label class="space-radio-buttons">Weekly</label>
-                        <input
-                            name="reports_allowed"
-                            type="radio"
-                            value="monthly"
-                            class="radio-box"
-                            {% if profile.reports_allowed %} checked {% endif %}/>
+
+                        <input  id="monthly" name = "frequency" type="radio" value="monthly" class="radio-box" />
                         <label class="space-radio-buttons">Monthly</label>
                     </div>
-                    <button
-                        name="update_reports_allowed"
-                        type="submit"
-                        class="btn btn-default pull-right">Save</button>
+
+                    <button name="update_reports_allowed" type="submit" class="btn btn-default pull-right">Save</button>
                 </form>
             </div>
         </div>
@@ -347,5 +329,18 @@
 <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/profile.js' %}"></script>
+
+<script type="text/javascript">
+    $(function(){
+        $('#send_report').change(function(){
+            if ($(this).is(':checked')) {
+                $('#frequency').slideDown();
+            }else{
+                $('#monthly').prop('checked',true).change();
+                $('#frequency').slideUp();
+            }
+        });
+    });
+</script>
 {% endcompress %}
 {% endblock %}
