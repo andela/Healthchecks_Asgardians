@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load compress staticfiles %}
+
+{% block title %}My Failed Jobs - healthchecks.io{% endblock %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <h3>
+            FAILED JOBS
+        </h3>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-sm-12">
+
+
+    {% if checks %}
+        {% include "front/my_failed_jobs_desktop.html" %}
+    {% else %}
+    <div class="alert alert-info">You don't have any failed jobs yet.</div>
+    {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{% compress js %}
+<script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/nouislider.min.js' %}"></script>
+<script src="{% static 'js/clipboard.min.js' %}"></script>
+<script src="{% static 'js/checks.js' %}"></script>
+{% endcompress %}
+{% endblock %}
