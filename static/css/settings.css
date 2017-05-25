@@ -8,7 +8,7 @@
 
 .settings-block h2 {
     margin: 0;
-    padding-bottom: 24px;
+    padding-bottom: 5px;
 }
 
 #badges-description {
@@ -17,4 +17,10 @@
 
 .page-profile .icon-ok {
     color: #5cb85c;
+}
+.space-radio-buttons{
+    padding-left: 5px;
+}
+.radio-box{
+    margin-right: 10px;
 }
