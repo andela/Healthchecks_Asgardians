@@ -12,7 +12,6 @@ from django.urls import reverse
 from django.utils import timezone
 from hc.lib import emails
 
-
 class Profile(models.Model):
     # Owner:
     user = models.OneToOneField(User, blank=True, null=True)
@@ -20,6 +19,7 @@ class Profile(models.Model):
     team_access_allowed = models.BooleanField(default=False)
     next_report_date = models.DateTimeField(null=True, blank=True)
     reports_allowed = models.BooleanField(default=True)
+    report_frequency = models.CharField(default='monthly', max_length=10)  # The report_frequency column/variable
     ping_log_limit = models.IntegerField(default=100)
     token = models.CharField(max_length=128, blank=True)
     api_key = models.CharField(max_length=128, blank=True)
@@ -56,7 +56,19 @@ class Profile(models.Model):
     def send_report(self):
         # reset next report date first:
         now = timezone.now()
-        self.next_report_date = now + timedelta(days=30)
+
+        # Set next report date depending on value of report_frequency variable.
+
+        if self.report_frequency == 'daily':
+            period = 1
+        elif self.report_frequency == 'weekly':
+            period = 7
+        elif self.report_frequency == 'monthly':
+            period = 30
+        else:
+            period = 0
+
+        self.next_report_date = now + timedelta(days=period)
         self.save()
 
         token = signing.Signer().sign(uuid.uuid4())
