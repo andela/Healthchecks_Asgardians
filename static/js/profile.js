@@ -11,3 +11,16 @@ $(function() {
     });
 
 });
+$(function(){
+    $('#send_report').change(function(){
+        if ($(this).is(':checked')) {
+            $('#frequency').show();
+        }else{
+           // $('#monthly').prop('checked', true);
+            $('#frequency').hide();
+        }
+//            var value = $( profile.report_frequency)
+//            $("input[name='report-frequency']").val(['value']);
+
+    });
+});
