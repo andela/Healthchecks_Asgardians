@@ -69,17 +69,19 @@ class Profile(models.Model):
         self.next_report_date = now + timedelta(days=period)
         self.save()
 
-        token = signing.Signer().sign(uuid.uuid4())
-        path = reverse("hc-unsubscribe-reports", args=[self.user.username])
-        unsub_link = "%s%s?token=%s" % (settings.SITE_ROOT, path, token)
+        if self.reports_allowed:  # Check if user has requested reports
+            token = signing.Signer().sign(uuid.uuid4())
+            path = reverse("hc-unsubscribe-reports", args=[self.user.username])
+            unsub_link = "%s%s?token=%s" % (settings.SITE_ROOT, path, token)
 
-        ctx = {
-            "checks": self.user.check_set.order_by("created"),
-            "now": now,
-            "unsub_link": unsub_link
-        }
+            ctx = {
+                "checks": self.user.check_set.order_by("created"),
+                "now": now,
+                "frequency": self.report_frequency,
+                "unsub_link": unsub_link
+            }
 
-        emails.report(self.user.email, ctx)
+            emails.report(self.user.email, ctx)
 
     def invite(self, user):
         member = Member(team=self, user=user)
