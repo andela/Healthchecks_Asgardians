@@ -27,7 +27,7 @@
                     {% csrf_token %}
                     <div>
                         <h2>Reports</h2>
-                        <input id = "send_report" style="float:left" name="reports_allowed" type="checkbox" {% if profile.reports_allowed %} checked {% endif %}>
+                        <input id = "send_report" name="reports_allowed" type="checkbox" {% if profile.reports_allowed %} checked {% endif %}>
                         <label>Send Me Reports</label>
 
                         <div id="frequency" {% if not profile.reports_allowed %} style="display: none" {% endif %}>
