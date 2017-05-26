@@ -58,3 +58,9 @@ class MyChecksTestCase(BaseTestCase):
 
         # Mobile
         self.assertContains(r, "label-warning")
+
+    def test_failed_jobs_tab_works(self):
+        for email in ("alice@example.org", "bob@example.org"):
+            self.client.login(username=email, password="password")
+            r = self.client.get("/failed_jobs/")
+            self.assertEqual(r.status_code, 200)
