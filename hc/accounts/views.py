@@ -164,6 +164,7 @@ def profile(request):
                 else:
                     msg = "Your settings have been updated. You wont recieve any reports."
                 messages.success(request, msg)
+
         elif "invite_team_member" in request.POST:
             if not profile.team_access_allowed:
                 return HttpResponseForbidden()
