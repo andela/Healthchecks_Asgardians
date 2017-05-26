@@ -162,7 +162,7 @@ def profile(request):
                 if profile.reports_allowed:
                     msg = "Your settings have been updated. You shall receive {} reports.".format(profile.report_frequency)
                 else:
-                    msg = "Your settings have been updated. You wont revieve any reports."
+                    msg = "Your settings have been updated. You wont recieve any reports."
                 messages.success(request, msg)
         elif "invite_team_member" in request.POST:
             if not profile.team_access_allowed:

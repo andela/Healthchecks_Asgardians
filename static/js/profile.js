@@ -19,8 +19,6 @@ $(function(){
            // $('#monthly').prop('checked', true);
             $('#frequency').hide();
         }
-//            var value = $( profile.report_frequency)
-//            $("input[name='report-frequency']").val(['value']);
 
     });
 });
