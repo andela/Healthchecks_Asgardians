@@ -40,6 +40,19 @@ class ProfileTestCase(BaseTestCase):
         self.assertEqual(mail.outbox[0].subject, 'Monthly Report')
         self.assertIn("This is a monthly report sent by healthchecks.io", mail.outbox[0].body)
 
+    def test_it_sends_daily_report(self):
+        '''Test sending daily report'''
+        check = Check(name="Test Daily Check", user=self.alice)
+        check.save()
+
+        self.alice.profile.reports_allowed = False
+        self.alice.profile.report_frequency = 'daily'
+        self.alice.profile.save()
+        self.alice.profile.send_report()
+
+        self.assertIn("This is a daily report sent by healthchecks.io", mail.outbox[-1].body)
+
+
     def test_it_adds_team_member(self):
         self.client.login(username="alice@example.org", password="password")
 
@@ -128,21 +141,35 @@ class ProfileTestCase(BaseTestCase):
         self.assertEqual(self.profile.api_key, "john123")
 
     # Test it has options for report frequency
-    def test_options_for_send_reports_daily(self):
-        self.client.login(username="bob@example.org", password="password")
-
-        self.profile.reports_allowed = True # Set to receive reports true
-        self.profile.report_frequency = 'weekly' # Set frequency to weekly
-
-        self.bobs.profile.save()
-
-        self.profile.refresh_from_db()
-
-        assert self.profile.reports_allowed == True
-        assert self.profile.report_frequency == 'weekly'
-        assert self.profile.next_report_date == datetime.datetime.now() + datetime.timedelta(days=6)  # Next report date is 7 days(1 week)
-
     # def test_options_for_send_reports_daily(self):
+    #     self.client.login(username="bob@example.org", password="password")
+    #
+    #     form = {"reports_allowed": True, "report_frequency": "daily"}
+    #     r = self.client.post("/accounts/profile/", form)
+    #     assert r.status_code == 200
+    #     self.assertEquals(self)
+    #
+    #     self.profile.refresh_from_db() # Check if the changes/user choice was persisted to the db
+    #
+    #     assert self.profile.reports_allowed is True
+    #     self.assertEquals(self.profile.report_frequency, 'weekly')
+    #     assert self.profile.next_report_date == datetime.datetime.now() + datetime.timedelta(days=30)  # Next report date is 7 days(1 week)
+    #
+    # def test_options_for_send_reports_wekly(self):
+    #     self.client.login(username="alice@example.org", password="password")
+    #
+    #     form = {"reports_allowed": True, "report_frequency": "weekly"}
+    #     r = self.client.post("/accounts/profile/", form)
+    #     assert r.status_code == 200
+    #
+    #     self.profile.refresh_from_db() # Check if the changes/user choice was persisted to the db
+    #
+    #     assert self.profile.reports_allowed is True
+    #     assert self.profile.report_frequency == 'weekly'
+    #     assert self.profile.next_report_date == datetime.datetime.now() + datetime.timedelta(days=30)
+    #
+    #     # self.assertIn("Your settings have been updated. You shall receive weekly reports.", r)
+
 
 
 
