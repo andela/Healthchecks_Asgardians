@@ -1,8 +1,11 @@
+import datetime
 from django.core import mail
 
 from hc.test import BaseTestCase
 from hc.accounts.models import Member
 from hc.api.models import Check
+from hc.accounts.models import Profile
+
 
 
 class ProfileTestCase(BaseTestCase):
@@ -18,8 +21,13 @@ class ProfileTestCase(BaseTestCase):
         self.alice.profile.refresh_from_db()
         token = self.alice.profile.token
         ### Assert that the token is set
+        self.assertTrue(token)
+
 
         ### Assert that the email was sent and check email content
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, 'Set password on healthchecks.io')
+        self.assertIn("Here's a link to set a password for your account on healthchecks.io", mail.outbox[0].body)
 
     def test_it_sends_report(self):
         check = Check(name="Test Check", user=self.alice)
@@ -28,6 +36,9 @@ class ProfileTestCase(BaseTestCase):
         self.alice.profile.send_report()
 
         ###Assert that the email was sent and check email content
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, 'Monthly Report')
+        self.assertIn("This is a monthly report sent by healthchecks.io", mail.outbox[0].body)
 
     def test_it_adds_team_member(self):
         self.client.login(username="alice@example.org", password="password")
@@ -45,6 +56,9 @@ class ProfileTestCase(BaseTestCase):
         self.assertTrue("frank@example.org" in member_emails)
 
         ###Assert that the email was sent and check email content
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, 'You have been invited to join alice@example.org on healthchecks.io')
+        self.assertIn("alice@example.org invites you to their healthchecks.io account", mail.outbox[0].body)
 
     def test_add_team_member_checks_team_access_allowed_flag(self):
         self.client.login(username="charlie@example.org", password="password")
@@ -108,3 +122,29 @@ class ProfileTestCase(BaseTestCase):
         self.assertNotContains(r, "bobs-tag.svg")
 
     ### Test it creates and revokes API key
+    def test_it_creates_and_revokes_API_key(self):
+        self.client.login(username="john@example.org", password="password")
+        self.profile = Profile(user=self.bob, api_key="john123")
+        self.assertEqual(self.profile.api_key, "john123")
+
+    # Test it has options for report frequency
+    def test_options_for_send_reports_daily(self):
+        self.client.login(username="bob@example.org", password="password")
+
+        self.profile.reports_allowed = True # Set to receive reports true
+        self.profile.report_frequency = 'weekly' # Set frequency to weekly
+
+        self.bobs.profile.save()
+
+        self.profile.refresh_from_db()
+
+        assert self.profile.reports_allowed == True
+        assert self.profile.report_frequency == 'weekly'
+        assert self.profile.next_report_date == datetime.datetime.now() + datetime.timedelta(days=6)  # Next report date is 7 days(1 week)
+
+    # def test_options_for_send_reports_daily(self):
+
+
+
+
+

@@ -65,8 +65,6 @@ class Profile(models.Model):
             period = 7
         elif self.report_frequency == 'monthly':
             period = 30
-        else:
-            period = 0
 
         self.next_report_date = now + timedelta(days=period)
         self.save()
