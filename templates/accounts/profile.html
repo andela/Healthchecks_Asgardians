@@ -29,7 +29,6 @@
                         <h2>Reports</h2>
                         <input id = "send_report" name="reports_allowed" type="checkbox" {% if profile.reports_allowed %} checked {% endif %}>
                         <label>Send Me Reports</label>
-
                         <div id="frequency" {% if not profile.reports_allowed %} style="display: none" {% endif %}>
                             <h2>Report Frequency</h2>
                             <input id="daily" name="report_frequency" type="radio" value="daily" class="radio-box" {% if profile.report_frequency == "daily" %} checked {% endif %}/>
@@ -331,10 +330,19 @@
 {% block scripts %}
 {% compress js %}
 <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/profile.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script>
-
+    $(function(){
+    $('#send_report').change(function(){
+        if ($(this).is(':checked')) {
+            $('#frequency').show();
+        }else{
+           // $('#monthly').prop('checked', true);
+            $('#frequency').hide();
+        }
+    });
+});
 </script>
 {% endcompress %}
 {% endblock %}

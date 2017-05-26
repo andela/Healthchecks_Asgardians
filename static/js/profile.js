@@ -19,6 +19,7 @@ $(function(){
            // $('#monthly').prop('checked', true);
             $('#frequency').hide();
         }
-
     });
 });
+
+console.log('I loaded!')
