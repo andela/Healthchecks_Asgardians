@@ -53,9 +53,9 @@ class Check(models.Model):
     last_ping = models.DateTimeField(null=True, blank=True)
     alert_after = models.DateTimeField(null=True, blank=True, editable=False)
     status = models.CharField(max_length=6, choices=STATUSES, default="new")
-    nag = models.DurationField(default=DEFAULT_NAG, null=True)
-    last_nag = models.DateTimeField(null=True)
-    next_nag = models.DateTimeField(null=True, editable=False)
+    nag = models.DurationField(null=True)
+    last_nag = models.DateTimeField(null=True, blank=True)
+    next_nag = models.DateTimeField(null=True, blank=True)
 
     def name_then_code(self):
         if self.name:
@@ -107,6 +107,14 @@ class Check(models.Model):
         up_ends = self.last_ping + self.timeout
         grace_ends = up_ends + self.grace
         return up_ends < timezone.now() < grace_ends
+
+    def in_nag_mode(self):
+        if self.status == "down":
+            up_ends = self.last_ping + self.timeout
+            grace_ends = up_ends + self.grace
+            nag_starts = grace_ends + self.nag
+            if (nag_starts == timezone.now()) or (nag_starts > timezone.now()):
+                return True
 
     def assign_all_channels(self):
         if self.user:

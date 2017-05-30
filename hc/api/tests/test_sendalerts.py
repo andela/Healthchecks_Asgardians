@@ -39,4 +39,14 @@ class SendAlertsTestCase(BaseTestCase):
         # Expect no exceptions--
         Command().handle_one(check)
 
+    def test_it_handles_nag(self):
+        check = Check(user=self.alice, status="down")
+        # 1 day 30 minutes after ping the check is in grace period:
+        check.last_ping = timezone.now() - timedelta(days=1, hours=1)
+        check.save()
+        # import pdb; pdb.set_trace()
+        check.refresh_from_db()
+        # Expect no exceptions--
+        Command().handle_one(check)
+
 # Assert when Command's handle many that when handle_many should return True
