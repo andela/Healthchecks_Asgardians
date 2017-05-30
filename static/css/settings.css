@@ -7,8 +7,8 @@
 }
 
 .settings-block h2 {
-    margin: 0;
-    padding-bottom: 24px;
+    margin: 10px;
+    padding-bottom: 5px;
 }
 
 #badges-description {
@@ -18,3 +18,23 @@
 .page-profile .icon-ok {
     color: #5cb85c;
 }
+.space-radio-buttons{
+    padding-left: 5px;
+}
+
+input[type='radio'] {
+    clear: none;
+    margin: 0 5px 0 5px;
+    border: 0px;
+    width: 20px;
+    height: 1em;
+}
+
+label {
+    margin-left: 10;
+}
+
+input[type='checkbox'] {
+    margin: 0 10px 0 0;
+}
+

@@ -13,8 +13,15 @@ class EmailPasswordForm(forms.Form):
     password = forms.CharField(required=False)
 
 
+REPORT_FREQ = (
+    ('daily', 'daily'),
+    ('weekly', 'weekly'),
+    ('monthly', 'monthly')
+)
+
 class ReportSettingsForm(forms.Form):
     reports_allowed = forms.BooleanField(required=False)
+    report_frequency = forms.ChoiceField(widget=forms.RadioSelect, choices=REPORT_FREQ, required=True)
 
 
 class SetPasswordForm(forms.Form):

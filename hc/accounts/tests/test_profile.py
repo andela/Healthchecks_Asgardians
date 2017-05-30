@@ -1,3 +1,4 @@
+import datetime
 from django.core import mail
 
 from hc.test import BaseTestCase

@@ -19,23 +19,29 @@
 </div>
 
 <div class="row">
+    <div class="col-md-12">
     <div class="col-sm-6">
         <div class="panel panel-default">
             <div class="panel-body settings-block">
                 <form method="post">
                     {% csrf_token %}
-                    <h2>Monthly Reports</h2>
-                    <label>
-                        <input
-                            name="reports_allowed"
-                            type="checkbox"
-                            {% if profile.reports_allowed %} checked {% endif %}>
-                        Each month send me a summary of my checks
-                    </label>
-                    <button
-                        name="update_reports_allowed"
-                        type="submit"
-                        class="btn btn-default pull-right">Save</button>
+                    <div>
+                        <h2>Reports</h2>
+                        <input id = "send_report" name="reports_allowed" type="checkbox" {% if profile.reports_allowed %} checked {% endif %}>
+                        <label>Send Me Reports</label>
+                        <div id="frequency" {% if not profile.reports_allowed %} style="display: none" {% endif %}>
+                            <h2>Report Frequency</h2>
+                            <input id="daily" name="report_frequency" type="radio" value="daily" class="radio-box" {% if profile.report_frequency == "daily" %} checked {% endif %}/>
+                            <label class="space-radio-buttons" >Daily</label>
+                            <input id="weekly" name="report_frequency" type="radio" value="weekly" class="radio-box" {% if profile.report_frequency == "weekly" %} checked {% endif %}/>
+                            <label class="space-radio-buttons" >Weekly</label>
+                            <input id="monthly" name="report_frequency" type="radio" value="monthly" class="radio-box" {% if profile.report_frequency == "monthly" %} checked {% endif %}/>
+                            <label class="space-radio-buttons" >Monthly</label>
+                        </div>
+                    </div>
+                    <div style="display: table-row; float:right">
+                        <button name="update_reports_allowed" type="submit" class="btn btn-default pull-right">Save</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -56,7 +62,8 @@
             </div>
         </div>
     </div>
-
+    </div>
+    <div class="col-md-12">
     <div class="col-sm-6">
         <div class="panel panel-default">
             <div class="panel-body settings-block">
@@ -153,6 +160,7 @@
                 {% endif %}
             </div>
         </div>
+    </div>
     </div>
 </div>
 
@@ -318,10 +326,23 @@
 </div>
 {% endblock %}
 
+
 {% block scripts %}
 {% compress js %}
 <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/profile.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script>
+    $(function(){
+    $('#send_report').change(function(){
+        if ($(this).is(':checked')) {
+            $('#frequency').show();
+        }else{
+           // $('#monthly').prop('checked', true);
+            $('#frequency').hide();
+        }
+    });
+});
+</script>
 {% endcompress %}
 {% endblock %}
