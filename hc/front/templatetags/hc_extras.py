@@ -17,6 +17,8 @@ WEEK = Unit("week", DAY.nsecs * 7)
 
 @register.filter
 def hc_duration(td):
+    # import pdb
+    # pdb.set_trace()
     remaining_seconds = int(td.total_seconds())
     result = []
 

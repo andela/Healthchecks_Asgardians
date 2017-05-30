@@ -53,7 +53,7 @@ class Check(models.Model):
     last_ping = models.DateTimeField(null=True, blank=True)
     alert_after = models.DateTimeField(null=True, blank=True, editable=False)
     status = models.CharField(max_length=6, choices=STATUSES, default="new")
-    nag = models.DurationField(null=True)
+    nag = models.DurationField(null=True, default=DEFAULT_NAG)
     last_nag = models.DateTimeField(null=True, blank=True)
     next_nag = models.DateTimeField(null=True, blank=True)
 
@@ -134,6 +134,7 @@ class Check(models.Model):
             "tags": self.tags,
             "timeout": int(self.timeout.total_seconds()),
             "grace": int(self.grace.total_seconds()),
+            "nag": int(self.nag.total_seconds()),
             "n_pings": self.n_pings,
             "status": self.get_status()
         }
