@@ -20,7 +20,5 @@ class ApiAdminTestCase(BaseTestCase):
         ch = Channel(user=self.alice, kind="pushbullet", value="test-token")
         ch.save()
 
-        import requests
-        requests.get("http://127.0.0.1:8000/ping/dd6aa10d-e8de-4b99-a390-285bacfe6c6b")
         # Assert for the push bullet
         self.assertEqual("pushbullet", ch.kind)
