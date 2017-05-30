@@ -60,6 +60,22 @@ def my_checks(request):
     return render(request, "front/my_checks.html", ctx)
 
 
+@login_required
+def failed_jobs(request):
+    q = Check.objects.all().order_by("created")
+    checks = []
+    for check in q:
+        status = check.get_status()
+        if status == "down":
+            checks.append(check)
+    ctx = {
+        "page": "failed_jobs",
+        "checks": checks,
+        "ping_endpoint": settings.PING_ENDPOINT
+    }
+
+    return render(request, "front/my_failed_jobs.html", ctx)
+
 def _welcome_check(request):
     check = None
     if "welcome_code" in request.session:

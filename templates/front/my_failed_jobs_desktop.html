@@ -1,0 +1,46 @@
+{% load hc_extras humanize %}
+<table id="failed-table" class="table hidden-xs">
+    <tr>
+        <th></th>
+        <th class="th-name">Name</th>
+        <th>Ping URL</th>
+        <th>Last Ping</th>
+        <th></th>
+    </tr>
+    {% for check in checks %}
+    <tr class="checks-row">
+        <td class="indicator-cell">
+            <span class="status icon-down"></span>
+        </td>
+        <td class="name-cell">
+            <div data-name="{{ check.name }}"
+                    data-tags="{{ check.tags }}"
+                    data-url="{% url 'hc-update-name' check.code %}"
+                    class="my-checks-name {% if not check.name %}unnamed{% endif %}">
+                <div>{{ check.name|default:"unnamed" }}</div>
+            </div>
+        </td>
+        <td class="url-cell">
+            <span class="my-checks-url">
+                <span class="base">{{ ping_endpoint }}</span>{{ check.code }}
+            </span>
+            <button
+                class="copy-link hidden-sm"
+                data-clipboard-text="{{ check.url }}"
+            </button>
+        </td>
+        <td>
+        {% if check.last_ping %}
+            <span
+                data-toggle="tooltip"
+                title="{{ check.last_ping|date:'N j, Y, P e' }}">
+                {{ check.last_ping|naturaltime }}
+            </span>
+        {% else %}
+            Never
+        {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
