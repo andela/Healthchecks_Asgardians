@@ -14,8 +14,9 @@ WIDTHS = {"a": 7, "b": 7, "c": 6, "d": 7, "e": 6, "f": 4, "g": 7, "h": 7,
 
 COLORS = {
     "up": "#4c1",
-    "late": "#fe7d37",
-    "down": "#e05d44"
+    "late": "#",
+    "down": "#e05d44",
+    "often": "#e05d44"
 }
 
 
