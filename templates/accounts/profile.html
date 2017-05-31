@@ -270,12 +270,27 @@
                     <div class="form-group">
                         <label for="itm-email" class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-9">
-                            <input
-                                type="email"
-                                class="form-control"
-                                id="itm-email"
-                                name="email"
-                                placeholder="friend@example.org">
+                                <div>
+                                    <input
+                                        type="email"
+                                        class="form-control"
+                                        id="itm-email"
+                                        name="email"
+                                        placeholder="friend@example.org">
+                                    </div>
+                                <div style="border: 10px; margin: 10px;">
+                                    <div style="border: 10px; margin: 5px">
+                                        {% for check in checks %}
+                                        <div>
+                                            <input
+                                                type="checkbox"
+                                                id="check">
+                                                <label>{{ check.name }}</label>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
                         </div>
                     </div>
                 </div>
