@@ -277,19 +277,23 @@
                                         id="itm-email"
                                         name="email"
                                         placeholder="friend@example.org">
-                                    </div>
-                                <div style="border: 10px; margin: 10px;">
-                                    <div style="border: 10px; margin: 5px">
+                                </div>
+                                <h4 align="center">Select User accessible checks and scope</h4>
+                                <div style="display: block; margin: 10px; margin-left: -100px; width: 130%">
+                                    <table class="table" style="border-collapse: separate; border-spacing: 0 0.5em;">
+                                        <tr style="font-weight: bold">
+                                            <th style="border-right: 1px solid lightgrey; width: 30%;"><h4>Check Name</h4></th>
+                                            <th class="scope" colspan="3" style="text-align: center; ; width: 70%"><h4>Scope</h4></th>
+                                        </tr>
                                         {% for check in checks %}
-                                        <div>
-                                            <input
-                                                type="checkbox"
-                                                id="check">
-                                                <label>{{ check.name }}</label>
-                                        </div>
+                                        <tr style="border: 1px solid grey">
+                                            <td style="border-right: 1px solid lightgrey"><input type="checkbox" value="check_name" id="check-selected"><label>{{ check.name }}</label></input></td>
+                                            <td><input type="radio" value="pause">Pause check</input></td>
+                                            <td><input type="radio" value="logs">See Logs</input></td>
+                                            <td><input type="radio" value="remove">Remove Check</input></td>
+                                        </tr>
                                         {% endfor %}
-                                    </div>
-
+                                    </table>
                                 </div>
                         </div>
                     </div>
