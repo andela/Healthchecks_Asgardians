@@ -219,7 +219,8 @@ def profile(request):
         "page": "profile",
         "badge_urls": badge_urls,
         "profile": profile,
-        "show_api_key": show_api_key
+        "show_api_key": show_api_key,
+        "checks": Check.objects.filter(user=request.team.user)
     }
 
     return render(request, "accounts/profile.html", ctx)

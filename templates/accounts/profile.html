@@ -270,12 +270,31 @@
                     <div class="form-group">
                         <label for="itm-email" class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-9">
-                            <input
-                                type="email"
-                                class="form-control"
-                                id="itm-email"
-                                name="email"
-                                placeholder="friend@example.org">
+                                <div>
+                                    <input
+                                        type="email"
+                                        class="form-control"
+                                        id="itm-email"
+                                        name="email"
+                                        placeholder="friend@example.org">
+                                </div>
+                                <h4 align="center">Select User accessible checks and scope</h4>
+                                <div style="display: block; margin: 10px; margin-left: -90px; width: 130%">
+                                    <table id="checks-table" class="table" style="border-collapse: separate; border-spacing: 0 0.1em; border: 1px solid gray;">
+                                        <tr>
+                                            <th id="select-check" style="border-right: 1px solid lightgrey; width: 31%;"><h4 style="font-weight: bold">Check Name</h4></th>
+                                            <th colspan="3" style="text-align: center; ; width: 69%"><h4 style="font-weight: bold">Scope</h4></th>
+                                        </tr>
+                                        {% for check in checks %}
+                                        <tr style="border: 1px solid grey">
+                                            <td style="border-right: 1px solid lightgrey"><input type="checkbox" value="check_name" class="check-selected"><label>{{ check.name }}</label></input></td>
+                                            <td><input class="scope" type="checkbox" value="pause" disabled checked>Pause check</input></td>
+                                            <td><input class="scope" type="checkbox" value="logs" disabled checked>See Logs</input></td>
+                                            <td><input class="scope" type="checkbox" value="remove" disabled checked>Remove Check</input></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -284,7 +303,7 @@
                     <button
                         type="submit"
                         name="invite_team_member"
-                        class="btn btn-primary">Send Invite</button>
+                        class="btn btn-primary send-invite" disabled>Send Invite</button>
                 </div>
             </div>
         </form>
@@ -333,7 +352,7 @@
 <script src="{% static 'js/profile.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script>
-    $(function(){
+$(function(){
     $('#send_report').change(function(){
         if ($(this).is(':checked')) {
             $('#frequency').show();
@@ -342,7 +361,35 @@
             $('#frequency').hide();
         }
     });
+    $('#checks-selected').change(function(){
+        if ($(this).is(':checked')){
+            $('#')
+        }
+
+    });
 });
+$(document).on('change','.check-selected',function(){
+var row = $(this).closest('tr');
+var atLeastOneIsChecked = $('.check-selected:checked').length > 0;
+var emailField =  $('#itm-email').val();
+    if($(this).is(':checked'))
+    {
+      $(row).find('.scope').prop("disabled",false);
+      $(row).find('.scope').prop("checked",true);
+    }
+    else
+    {
+      $(row).find('.scope').prop("disabled",true);
+    }
+
+    if ((atLeastOneIsChecked) && !(emailField == "")){
+        $('.send-invite').prop("disabled", false)
+    }
+    else {
+        $('.send-invite').prop("disabled", true)
+    }
+});
+
 </script>
 {% endcompress %}
 {% endblock %}

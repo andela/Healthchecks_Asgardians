@@ -66,7 +66,7 @@ class Profile(models.Model):
         elif self.report_frequency == 'monthly':
             period = 30
 
-        self.next_report_date = now + timedelta(days=period)
+        self.next_report_date = now + timedelta(minutes=period)
         self.save()
 
         if self.reports_allowed:  # Check if user has requested reports
