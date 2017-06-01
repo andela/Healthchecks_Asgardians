@@ -280,9 +280,9 @@
                                 </div>
                                 <h4 align="center">Select User accessible checks and scope</h4>
                                 <div style="display: block; margin: 10px; margin-left: -100px; width: 130%">
-                                    <table class="table" style="border-collapse: separate; border-spacing: 0 0.1em;">
+                                    <table id="checks-table" class="table" style="border-collapse: separate; border-spacing: 0 0.1em;">
                                         <tr>
-                                            <th style="border-right: 1px solid lightgrey; width: 31%;"><h4 style="font-weight: bold">Check Name</h4></th>
+                                            <th id="select-check" style="border-right: 1px solid lightgrey; width: 31%;"><h4 style="font-weight: bold">Check Name</h4></th>
                                             <th colspan="3" style="text-align: center; ; width: 69%"><h4 style="font-weight: bold">Scope</h4></th>
                                         </tr>
                                         {% for check in checks %}
@@ -370,17 +370,24 @@ $(function(){
 });
 $(document).on('change','.check-selected',function(){
 var row = $(this).closest('tr');
+var atLeastOneIsChecked = $('.check-selected:checked').length > 0;
     if($(this).is(':checked'))
     {
       $(row).find('.scope').prop("disabled",false);
       $(row).find('.scope').prop("checked",true);
-      $('.send-invite').prop("disabled", false)
+//      $('.send-invite').prop("disabled", false)
     }
     else
     {
       $(row).find('.scope').prop("disabled",true);
-      $('.send-invite').prop("disabled", true)
+//      $('.send-invite').prop("disabled", true)
+    }
 
+    if(atLeastOneIsChecked) {
+        $('.send-invite').prop("disabled", false)
+    }
+    else {
+        $('.send-invite').prop("disabled", true)
     }
 });
 
