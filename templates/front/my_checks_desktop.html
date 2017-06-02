@@ -4,6 +4,9 @@
         <th></th>
         <th class="th-name">Name</th>
         <th>Ping URL</th>
+        <th>
+        Nag mode
+        </th>
         <th class="th-period">
             Period <br />
             <span class="checks-subline">Grace</span> <br />
@@ -49,6 +52,13 @@
                 data-clipboard-text="{{ check.url }}">
                 copy
             </button>
+        </td>
+        <td>
+            {% if check.get_status == "down" %}
+            <span class="status icon-checkmark"></span>
+            {% else %}
+            <span class="status icon-alarm_on"></span>
+            {% endif %}
         </td>
         <td class="timeout-cell">
             <span
