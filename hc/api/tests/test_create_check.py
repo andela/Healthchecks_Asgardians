@@ -28,7 +28,8 @@ class CreateCheckTestCase(BaseTestCase):
             "name": "Foo",
             "tags": "bar,baz",
             "timeout": 3600,
-            "grace": 60
+            "grace": 60,
+            "nag": 60
         })
 
         self.assertEqual(r.status_code, 201)
