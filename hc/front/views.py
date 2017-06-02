@@ -322,6 +322,9 @@ def do_add_channel(request, data):
             channel.send_verify_link()
         return redirect("hc-channels")
     else:
+        # import pdb
+        # pdb.set_trace()
+        print(form.errors)
         return HttpResponseBadRequest()
 
 
