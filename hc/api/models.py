@@ -113,7 +113,7 @@ class Check(models.Model):
             up_ends = self.last_ping + self.timeout
             grace_ends = up_ends + self.grace
             nag_starts = grace_ends + self.nag
-            if (nag_starts == timezone.now()) or (nag_starts > timezone.now()):
+            if nag_starts < timezone.now():
                 return True
 
     def assign_all_channels(self):
