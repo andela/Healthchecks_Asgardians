@@ -29,6 +29,7 @@
             <td>
             {% if ch.kind == "email" %} Email {% endif %}
             {% if ch.kind == "webhook" %} Webhook {% endif %}
+            {% if ch.kind == "sms" %} Sms {% endif %}
             {% if ch.kind == "slack" %} Slack {% endif %}
             {% if ch.kind == "hipchat" %} HipChat {% endif %}
             {% if ch.kind == "pd" %} PagerDuty {% endif %}
@@ -43,6 +44,9 @@
                     {% if not ch.email_verified %}
                         <span class="channel-unconfirmed">(unconfirmed)</span>
                     {% endif %}
+                {% elif ch.kind == "sms" %}
+                    <span class="preposition">to</span>
+                    {{ ch.value }}
                 {% elif ch.kind == "pd" %}
                     <span class="preposition">API key</span>
                     {{ ch.value }}
@@ -142,6 +146,15 @@
             <p>Get an email message when check goes up or down.</p>
 
             <a href="{% url 'hc-add-email' %}" class="btn btn-primary">Add Integration</a>
+        </li>
+        <li>
+            <img src="{% static 'img/integrations/sms.png' %}"
+                class="icon" alt="Sms icon" />
+
+            <h2>SMS</h2>
+            <p>Get an SMS when check goes up or down.</p>
+
+            <a href="{% url 'hc-add-sms' %}" class="btn btn-primary">Add Integration</a>
         </li>
         <li>
             <img src="{% static 'img/integrations/webhook.png' %}"
