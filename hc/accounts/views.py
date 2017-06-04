@@ -173,6 +173,11 @@ def profile(request):
             if form.is_valid():
 
                 email = form.cleaned_data["email"]
+                selected_checks = request.POST.getlist("check_name")
+                pause = request.POST.getlist("pause")
+                logs = request.POST.getlist("logs")
+                remove = request.POST.getlist("remove")
+                print("SELECTED CHECKS: ", selected_checks, pause, logs, remove)
                 try:
                     user = User.objects.get(email=email)
                 except User.DoesNotExist:
