@@ -19,6 +19,7 @@ REPORT_FREQ = (
     ('monthly', 'monthly')
 )
 
+
 class ReportSettingsForm(forms.Form):
     reports_allowed = forms.BooleanField(required=False)
     report_frequency = forms.ChoiceField(widget=forms.RadioSelect, choices=REPORT_FREQ, required=True)
@@ -27,9 +28,17 @@ class ReportSettingsForm(forms.Form):
 class SetPasswordForm(forms.Form):
     password = forms.CharField()
 
-
+SCOPE = (
+    ('logs', 'See logs'),
+    ('remove', 'Remove Check'),
+    ('pause', 'Pause Check')
+)
 class InviteTeamMemberForm(forms.Form):
     email = LowercaseEmailField()
+    check_name = forms.CharField()
+    logs = forms.CharField()
+    pause = forms.CharField()
+    remove = forms.CharField()
 
 
 class RemoveTeamMemberForm(forms.Form):
