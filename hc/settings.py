@@ -35,7 +35,6 @@ INSTALLED_APPS = (
     'compressor',
     'djmail',
     'embed_video',
-
     'hc.accounts',
     'hc.api',
     'hc.front',
