@@ -17,6 +17,7 @@ from hc.api.decorators import uuid_or_400
 from hc.api.models import DEFAULT_GRACE, DEFAULT_TIMEOUT, Channel, Check, Ping
 from hc.front.forms import (AddChannelForm, AddWebhookForm, NameTagsForm,
                             TimeoutForm)
+from hc.accounts.models import CheckScope
 
 
 # from itertools recipes:
@@ -31,6 +32,23 @@ def pairwise(iterable):
 def my_checks(request):
     q = Check.objects.filter(user=request.team.user).order_by("created")
     checks = list(q)
+
+    email = request.user.email
+    print(email)
+
+    team_checks = CheckScope.objects.filter(user=email)
+    print("LEN OF TEAMCHECKS", len(team_checks))
+
+    accessible_checks = []
+
+    for check_info in team_checks:
+        q = list(Check.objects.filter(code=check_info.check_code))
+        accessible_checks.append(q[0])
+
+    check_scope = {}
+
+    for check in team_checks:
+        check_scope[check.check_code] = [check.see_logs, check.pause_check, check.remove_check]
 
     counter = Counter()
     down_tags, grace_tags = set(), set()
@@ -54,8 +72,15 @@ def my_checks(request):
         "tags": counter.most_common(),
         "down_tags": down_tags,
         "grace_tags": grace_tags,
-        "ping_endpoint": settings.PING_ENDPOINT
+        "ping_endpoint": settings.PING_ENDPOINT,
+        "check_scope": check_scope,
+        "true_scope": [True, True, True],
+        "accessible_checks": set(accessible_checks)
     }
+
+    print(accessible_checks)
+    print("XXXXXXXXXXXXXXXXXXX")
+    print(checks)
 
     return render(request, "front/my_checks.html", ctx)
 

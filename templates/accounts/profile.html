@@ -285,14 +285,20 @@
                                             <th id="select-check" style="border-right: 1px solid lightgrey; text-align: center; width: 31%;"><h4 style="font-weight: bold">Check Name</h4></th>
                                             <th colspan="3" style="text-align: center; width: 69%"><h4 style="font-weight: bold">Scope</h4></th>
                                         </tr>
-                                        {% for check in checks %}
-                                        <tr style="border: 1px solid grey">
-                                            <td style="border-right: 1px solid lightgrey"><input type="checkbox" name="check_name" class="check-selected"><label>{{ check.name }}</label></input></td>
-                                            <td><input class="scope" type="checkbox" name="pause" disabled checked>Pause check</input></td>
-                                            <td><input class="scope" type="checkbox" name="logs" disabled checked>See Logs</input></td>
-                                            <td><input class="scope" type="checkbox" name="remove" disabled checked>Remove Check</input></td>
-                                        </tr>
-                                        {% endfor %}
+                                        {% if checks %}
+                                            {% for check in checks %}
+                                            <tr style="border: 1px solid grey">
+                                                <td style="border-right: 1px solid lightgrey">
+                                                    <input type="checkbox" name="check_name" id="name" class="check-selected" value="{{ check.code }}"><label>{{ check.name }}</label></input>
+                                                </td>
+                                                <td><input class="scope" type="checkbox" name="pause" value="{{ check.code }}" id="pause" disabled checked>Pause check</input></td>
+                                                <td><input class="scope" type="checkbox" name="logs" value="{{ check.code }}" id="logs" disabled checked>See Logs</input></td>
+                                                <td><input class="scope" type="checkbox" name="remove" value="{{ check.code }}" id="remove" disabled checked>Remove Check</input></td>
+                                            </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                        <tr><td colspan="4" style="text-align: center; font-weight: bold">No checks available to assign</td></tr>
+                                        {% endif %}
                                     </table>
                                 </div>
                         </div>

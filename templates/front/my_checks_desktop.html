@@ -1,4 +1,5 @@
 {% load hc_extras humanize %}
+{% load hc_assign_tag %}
 <table id="checks-table" class="table hidden-xs">
     <tr>
         <th></th>
@@ -11,7 +12,13 @@
         <th>Last Ping</th>
         <th></th>
     </tr>
-    {% for check in checks %}
+    {% for check in checks_to_display %}
+        {% if check in accessible_checks %}
+            {% define check_scope.check.code as scope %}
+        {% else %}
+            {% define true_scope as scope %}
+        {% endif %}
+
     <tr class="checks-row">
         <td class="indicator-cell">
             {% if check.get_status == "new" %}
@@ -80,17 +87,21 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li {% if check.status == "new" or check.status == "paused" %}class="disabled"{% endif %}>
+                    {% if scope.1 %}
                         <a class="pause-check"
                            href="#"
                            data-url="{% url 'hc-pause' check.code %}">
                            Pause Monitoring
                         </a>
+                    {% endif %}
                     </li>
                     <li role="separator" class="divider"></li>
                     <li>
+                    {% if scope.0 %}
                         <a href="{% url 'hc-log' check.code %}">
                             Log
                         </a>
+                    {% endif %}
                     </li>
                     <li>
                         <a
@@ -103,11 +114,13 @@
                     </li>
                     <li role="separator" class="divider"></li>
                     <li>
+                    {% if scope.2 %}
                         <a href="#" class="check-menu-remove"
                             data-name="{{ check.name_then_code }}"
                             data-url="{% url 'hc-remove-check' check.code %}">
                             Remove
                         </a>
+                    {% endif %}
                     </li>
                 </ul>
             </div>
