@@ -136,6 +136,12 @@ def docs_api(request):
 def about(request):
     return render(request, "front/about.html", {"page": "about"})
 
+def help(request):
+    return render(request, "front/help_center.html", {"page": "help"})
+
+def tutorials(request):
+    return render(request, "front/tutorials.html", {"page": "help"})
+
 
 @login_required
 def add_check(request):

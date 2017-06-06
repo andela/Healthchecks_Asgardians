@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}FAQs - healthchecks.io{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h1> Welcome To The Help Center</h1>
+    </div>
+
+    <div class="col-sm-2">
+        <ul class="docs-nav">
+            <li class="active">
+                <a href="{% url 'hc-help' %}"> Frequently Asked Questions </a>
+            </li>
+
+            <li {% if section == "tutorial" %} class="active" {% endif %}>
+                <a href="{% url 'hc-tutorials' %}"> Tutorials </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-sm-10">
+
+        <h2> Frequently Asked Questions </h2>
+
+        <div class="panel-group" id="accordion">
+            <div class="faqHeader">
+                <h3> Set Up Cron job </h3>
+            </div>
+
+            <div class="panel panel-default accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a>How Do I Set Up A Cron Job ?</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        Once you log in, you will be automatically redirected to my checks page. 
+                        Click on the Add check button and a check will be created
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> 
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a>Can I change the timeout and period ?</a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        When you create a check,the timeout and grace periods are by default set to one day and one hour respectively. 
+                        To change this click on the values. A modal window will pop up with sliders to change the timeout and grace periods.
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a>What is the maximum time timeout values that can be set ?</a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        The maximum time that can be set is 3 months/ 90 days while the lowest is one minute.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faqHeader">
+                <h3> Cron job Processing </h3>
+            </div>
+
+            <div class="panel panel-default accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a>When does a cron job run?</a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Each check has configurable Period and Grace Time parameters. A cron job runs once during the configured time.
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a>How do I tell my if my check is working or not?</a>
+                    </h4>
+                </div>
+
+                <div id="collapseFive" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>Each check has configurable Period and Grace Time parameters. Depending on these parameters and time since the last ping, 
+                        the check is in one of the following states:</p>
+                        <ul>
+                            <li><span class="status icon-up new"></span>New. A check that has been created, but has not received any pings yet.</li>
+                            <li><span class="status icon-up"></span>Up. Time since last ping has not exceeded Period.</li>
+                            <li><span class="status icon-grace"></span>Late. Time since last ping has exceeded Period, but has not yet exceeded Period + Grace.</li>
+                            <li><span class="status icon-down"></span>Down. Time since last ping has exceeded Period + Grace. When check goes from "Late" to "Down", HealthChecks sends you a notification.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a>How do i get notified on my job status?</a>
+                    </h4>
+                </div>
+                <div id="collapseSix" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        The Default notification method is through email. However, You can set up additional ways to get notified:
+                        They include slack, pushover, bullet e.t.c. we are adding new notification methods at the moment ... so stay tuned.
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a> Can I get Team Access?</a> 
+                    </h4>
+                </div>
+                <div id="collapseSeven" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Yes. You can use healthchecks.io as a team. this capability is available as a paid feature.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faqHeader">
+                <h3>Account Management</h3>
+            </div>
+            <div class="panel panel-default accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a> How do I get premium features on healthchecks?</a>
+                    </h4>
+                </div>
+                <div id="collapseEight" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Visit <a href="{% url 'hc-pricing' %}"> Pricing </a> for more information on billing and premium features.
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseNine">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a>Is this the latest version of healthchecks</a>
+                    </h4>
+                </div>
+                <div id="collapseNine" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Healthchecks.io is always evolving to cater for the everchanging technological enviroment. However rest assured that you
+                        will always be notified on changes and updates to ensure seamless integration.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+

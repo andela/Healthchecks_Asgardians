@@ -34,11 +34,11 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'compressor',
     'djmail',
-
     'hc.accounts',
     'hc.api',
     'hc.front',
-    'hc.payments'
+    'hc.payments',
+    'embed_video'
 )
 
 MIDDLEWARE = (
@@ -70,7 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'hc.payments.context_processors.payments'
+                'hc.payments.context_processors.payments',
             ],
         },
     },
