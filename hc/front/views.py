@@ -324,7 +324,7 @@ def do_add_channel(request, data):
     else:
         # import pdb
         # pdb.set_trace()
-        print(form.errors)
+        # print(form.errors)
         return HttpResponseBadRequest()
 
 
