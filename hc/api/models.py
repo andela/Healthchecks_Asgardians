@@ -21,6 +21,7 @@ STATUSES = (
 )
 DEFAULT_TIMEOUT = td(days=1)
 DEFAULT_GRACE = td(hours=1)
+DEFAULT_NAG = td(hours=1)
 CHANNEL_KINDS = (("email", "Email"), ("webhook", "Webhook"),
                  ("hipchat", "HipChat"),
                  ("slack", "Slack"), ("pd", "PagerDuty"), ("po", "Pushover"),
@@ -52,6 +53,9 @@ class Check(models.Model):
     last_ping = models.DateTimeField(null=True, blank=True)
     alert_after = models.DateTimeField(null=True, blank=True, editable=False)
     status = models.CharField(max_length=6, choices=STATUSES, default="new")
+    nag = models.DurationField(null=True, default=DEFAULT_NAG)
+    last_nag = models.DateTimeField(null=True, blank=True)
+    next_nag = models.DateTimeField(null=True, blank=True)
 
     def name_then_code(self):
         if self.name:
@@ -61,6 +65,11 @@ class Check(models.Model):
 
     def url(self):
         return settings.PING_ENDPOINT + str(self.code)
+
+    def set_next_nag(self):
+        now = timezone.now()
+        self.next_nag = now + self.nag
+        self.last_nag = now
 
     def log_url(self):
         return settings.SITE_ROOT + reverse("hc-log", args=[self.code])
@@ -99,6 +108,14 @@ class Check(models.Model):
         grace_ends = up_ends + self.grace
         return up_ends < timezone.now() < grace_ends
 
+    def in_nag_mode(self):
+        if self.status == "down":
+            up_ends = self.last_ping + self.timeout
+            grace_ends = up_ends + self.grace
+            nag_starts = grace_ends + self.nag
+            if nag_starts < timezone.now():
+                return True
+
     def assign_all_channels(self):
         if self.user:
             channels = Channel.objects.filter(user=self.user)
@@ -117,6 +134,7 @@ class Check(models.Model):
             "tags": self.tags,
             "timeout": int(self.timeout.total_seconds()),
             "grace": int(self.grace.total_seconds()),
+            "nag": int(self.nag.total_seconds()),
             "n_pings": self.n_pings,
             "status": self.get_status()
         }

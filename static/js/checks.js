@@ -87,6 +87,35 @@ $(function () {
         $("#update-timeout-grace").val(rounded);
     });
 
+    var nagSlider = document.getElementById("nag-slider");
+    noUiSlider.create(nagSlider, {
+        start: [20],
+        connect: "lower",
+        range: {
+            'min': [60, 60],
+            '20%': [1800, 60],
+            '40%': [3600, 3600],
+            '60%': [21600, 3600],
+            '80%': [43200, 3600],
+            'max': 86400,
+        },
+        pips: {
+            mode: 'values',
+            values: [60, 1800, 3600, 21600, 43200, 86400],
+            density: 4,
+            format: {
+                to: secsToText,
+                from: function() {}
+            }
+        }
+    });
+
+    nagSlider.noUiSlider.on("update", function(a, b, value) {
+        var rounded = Math.round(value);
+        $("#nag-slider-value").text(secsToText(rounded));
+        $("#update-timeout-nag").val(rounded);
+    });
+
 
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -108,6 +137,7 @@ $(function () {
         $("#update-timeout-form").attr("action", $this.data("url"));
         periodSlider.noUiSlider.set($this.data("timeout"))
         graceSlider.noUiSlider.set($this.data("grace"))
+        nagSlider.noUiSlider.set($this.data("nag"))
         $('#update-timeout-modal').modal({"show":true, "backdrop":"static"});
 
         return false;

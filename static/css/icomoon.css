@@ -60,3 +60,10 @@
 .icon-settings:before {
   content: "\e8b8";
 }
+.icon-alarm_on:before {
+  content: "\2716";
+}
+
+.icon-checkmark:before {
+  content: "\2713";
+}

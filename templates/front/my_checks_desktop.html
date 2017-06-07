@@ -4,9 +4,13 @@
         <th></th>
         <th class="th-name">Name</th>
         <th>Ping URL</th>
+        <th>
+        Nag mode
+        </th>
         <th class="th-period">
             Period <br />
-            <span class="checks-subline">Grace</span>
+            <span class="checks-subline">Grace</span> <br />
+            <span class="checks-subline">Nag Time</span>
         </th>
         <th>Last Ping</th>
         <th></th>
@@ -49,16 +53,32 @@
                 copy
             </button>
         </td>
+        <td>
+            {% if check.get_status == "down" %}
+            <span class="status icon-checkmark"></span>
+            {% else %}
+            <span class="status icon-alarm_on"></span>
+            {% endif %}
+        </td>
         <td class="timeout-cell">
             <span
                 data-url="{% url 'hc-update-timeout' check.code %}"
                 data-timeout="{{ check.timeout.total_seconds }}"
                 data-grace="{{ check.grace.total_seconds }}"
+                {% if check.nag != None %}
+                data-nag="{{ check.nag.total_seconds }}"
+                {% endif %}
                 class="timeout-grace">
                 {{ check.timeout|hc_duration }}
                 <br />
                 <span class="checks-subline">
                 {{ check.grace|hc_duration }}
+                </span>
+                <br />
+                <span class="checks-subline">
+                {% if check.nag != None %}
+                {{ check.nag|hc_duration }}
+                {% endif %}
                 </span>
             </span>
         </td>
