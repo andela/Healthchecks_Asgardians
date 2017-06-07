@@ -35,7 +35,7 @@ def my_checks(request):
 
     email = request.user.email
 
-    team_checks = list(CheckScope.objects.filter(user=email))
+    team_checks = list(CheckScope.objects.filter(user=request.user.email))
 
     accessible_checks = []
 
@@ -46,7 +46,6 @@ def my_checks(request):
     check_scopes = []
 
     for check in team_checks:
-        code = str(check.check_code)
         check_scopes.append([check, [check.see_logs, check.pause_check, check.remove_check]])
 
     counter = Counter()
