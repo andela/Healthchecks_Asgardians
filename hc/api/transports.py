@@ -3,6 +3,7 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 import json
 import requests
+from twilio.rest import Client
 from six.moves.urllib.parse import quote
 
 from hc.lib import emails
@@ -58,6 +59,26 @@ class Email(Transport):
             "show_upgrade_note": show_upgrade_note
         }
         emails.alert(self.channel.value, ctx)
+
+
+class Sms(Transport):
+    def notify(self, check):
+        message = ('Hello, This is a notification sent by healthchecks.io : \
+                    \n\nThe check "{}" has gone {}.'.format(
+                    check.name_then_code(),
+                    check.status
+                    ))
+
+        from_ = settings.TWILIO_FROM
+        TWILIO_ACCOUNT_SID = settings.TWILIO_ACCOUNT_SID
+        TWILIO_AUTH_TOKEN = settings.TWILIO_AUTH_TOKEN
+        client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+        to = self.channel.value
+        response = client.messages.create(body=message, to=to, from_=from_)
+        if response.error_message is None:
+            print("\nSMS Errors: None")
+        else:
+            return response.error_message
 
 
 class HttpTransport(Transport):
