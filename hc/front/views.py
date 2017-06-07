@@ -34,10 +34,8 @@ def my_checks(request):
     checks = list(q)
 
     email = request.user.email
-    print(email)
 
     team_checks = list(CheckScope.objects.filter(user=email))
-    print("LEN OF TEAMCHECKS", team_checks)
 
     accessible_checks = []
 
@@ -79,13 +77,6 @@ def my_checks(request):
         "true_scope": [True, True, True],
         "accessible_checks": set(accessible_checks)
     }
-
-    print(accessible_checks)
-    print("XXXXXXXXXXXXXXXXXXX")
-    print(checks)
-    print("########")
-    print("CHECK SCOPE", check_scopes)
-    print("*************")
 
     return render(request, "front/my_checks.html", ctx)
 
