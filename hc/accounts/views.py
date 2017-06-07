@@ -178,7 +178,6 @@ def profile(request):
                 pause_list = request.POST.getlist("pause")
                 logs_list = request.POST.getlist("logs")
                 remove_list = request.POST.getlist("remove")
-                print("SELECTED CHECKS: ", selected_checks, pause_list, logs_list, remove_list)
 
                 for check in selected_checks:
                     code = check
