@@ -43,7 +43,7 @@ class ProfileTestCase(BaseTestCase):
     def test_it_adds_team_member(self):
         self.client.login(username="alice@example.org", password="password")
 
-        form = {"invite_team_member": "1", "email": "frank@example.org", "check_name": "Alpha", "pause" : "True", "logs":"True", "remove":"True"}
+        form = {"invite_team_member": "1", "email": "frank@example.org", "check_name" : ["98cfc457-4dff-47e7-961e-9695cfc264fc"], "pause" : ["98cfc457-4dff-47e7-961e-9695cfc264fc"], "logs": ["98cfc457-4dff-47e7-961e-9695cfc264fc"], "remove": ["98cfc457-4dff-47e7-961e-9695cfc264fc"]}
         r = self.client.post("/accounts/profile/", form)
         assert r.status_code == 200
 
