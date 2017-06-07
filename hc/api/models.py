@@ -88,11 +88,13 @@ class Check(models.Model):
         now = timezone.now()
         number = len(self.ping_set.all())
         reverse_grace = self.timeout / 2
-        
         if number > 1:
             previous_ping = self.ping_set.all()[number-2].created
-            if (self.last_ping - previous_ping) < self.timeout - reverse_grace:
-                return "often"
+        else:
+            return "up"
+
+        if (self.last_ping - previous_ping) < self.timeout - reverse_grace:
+            return "often"
 
         elif self.last_ping + self.timeout + self.grace > now:
             return "up"
