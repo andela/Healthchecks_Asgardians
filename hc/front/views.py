@@ -36,8 +36,8 @@ def my_checks(request):
     email = request.user.email
     print(email)
 
-    team_checks = CheckScope.objects.filter(user=email)
-    print("LEN OF TEAMCHECKS", len(team_checks))
+    team_checks = list(CheckScope.objects.filter(user=email))
+    print("LEN OF TEAMCHECKS", team_checks)
 
     accessible_checks = []
 
@@ -45,14 +45,16 @@ def my_checks(request):
         q = list(Check.objects.filter(code=check_info.check_code))
         accessible_checks.append(q[0])
 
-    check_scope = {}
+    check_scopes = []
 
     for check in team_checks:
-        check_scope[check.check_code] = [check.see_logs, check.pause_check, check.remove_check]
+        code = str(check.check_code)
+        check_scopes.append([check, [check.see_logs, check.pause_check, check.remove_check]])
 
     counter = Counter()
     down_tags, grace_tags = set(), set()
     for check in checks:
+        print("******!!!!!!!!******!!!!!!!*******!!!!!!", check.code)
         status = check.get_status()
         for tag in check.tags_list():
             if tag == "":
@@ -73,7 +75,7 @@ def my_checks(request):
         "down_tags": down_tags,
         "grace_tags": grace_tags,
         "ping_endpoint": settings.PING_ENDPOINT,
-        "check_scope": check_scope,
+        "check_scopes": check_scopes,
         "true_scope": [True, True, True],
         "accessible_checks": set(accessible_checks)
     }
@@ -81,6 +83,9 @@ def my_checks(request):
     print(accessible_checks)
     print("XXXXXXXXXXXXXXXXXXX")
     print(checks)
+    print("########")
+    print("CHECK SCOPE", check_scopes)
+    print("*************")
 
     return render(request, "front/my_checks.html", ctx)
 
