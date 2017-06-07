@@ -34,6 +34,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'compressor',
     'djmail',
+    'django_twilio',
 
     'hc.accounts',
     'hc.api',
@@ -156,3 +157,7 @@ PUSHOVER_EMERGENCY_EXPIRATION = 86400
 # Pushbullet integration -- override these in local_settings
 PUSHBULLET_CLIENT_ID = None
 PUSHBULLET_CLIENT_SECRET = None
+
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
+TWILIO_FROM = os.environ.get('TWILIO_FROM')

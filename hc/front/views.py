@@ -309,6 +309,8 @@ def channels(request):
 
 def do_add_channel(request, data):
     form = AddChannelForm(data)
+    # import pdb
+    # pdb.set_trace()
     if form.is_valid():
         channel = form.save(commit=False)
         channel.user = request.team.user
@@ -318,9 +320,11 @@ def do_add_channel(request, data):
 
         if channel.kind == "email":
             channel.send_verify_link()
-
         return redirect("hc-channels")
     else:
+        # import pdb
+        # pdb.set_trace()
+        # print(form.errors)
         return HttpResponseBadRequest()
 
 
@@ -379,6 +383,12 @@ def remove_channel(request, code):
 def add_email(request):
     ctx = {"page": "channels"}
     return render(request, "integrations/add_email.html", ctx)
+
+
+@login_required
+def add_sms(request):
+    ctx = {"page": "channels"}
+    return render(request, "integrations/add_sms.html", ctx)
 
 
 @login_required
