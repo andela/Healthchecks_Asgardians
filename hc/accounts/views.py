@@ -200,8 +200,15 @@ def profile(request):
                 except User.DoesNotExist:
                     user = _make_user(email)
 
-                profile.invite(user)
-                messages.success(request, "Invitation to %s sent!" % email)
+                team = list(Member.objects.values_list("user_id"))
+
+                ids = list([x[0] for x in team])
+                if user.id in ids:
+                    messages.success(request, "User already a member of the team. The specified checks have been added to the user's accessible check list")
+                else:
+                    profile.invite(user)
+                    messages.success(request, "Invitation to %s sent!" % email)
+
         elif "remove_team_member" in request.POST:
             form = RemoveTeamMemberForm(request.POST)
             if form.is_valid():
