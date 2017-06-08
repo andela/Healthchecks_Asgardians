@@ -36,8 +36,8 @@
     <div class="col-sm-12">
 
     {% if checks_to_display %}
-        {% include "front/my_checks_mobile.html" %}
         {% include "front/my_checks_desktop.html" %}
+        {% include "front/my_checks_mobile.html" %}
     {% else %}
     <div class="alert alert-info">You don't have any checks yet.</div>
     {% endif %}
