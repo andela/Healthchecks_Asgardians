@@ -86,15 +86,16 @@ class Check(models.Model):
             return self.status
 
         now = timezone.now()
-        number = len(self.ping_set.all())
-        reverse_grace = self.timeout / 2
-        if number > 1:
-            previous_ping = self.ping_set.all()[number-2].created
-        else:
-            return "up"
-
-        if (self.last_ping - previous_ping) < self.timeout - reverse_grace:
-            return "often"
+        if len(self.ping_set.all().order_by('-created')) > 2:
+            reversed_grace = self.timeout / 2
+            all_pings = self.ping_set.all().order_by('-created')
+            previous_ping = all_pings[1].created
+            if self.last_ping + self.timeout + self.grace > now:
+                if (self.last_ping - previous_ping) <\
+                                                self.timeout - reversed_grace:
+                    return "often"
+                else:
+                    return "up"
 
         elif self.last_ping + self.timeout + self.grace > now:
             return "up"
