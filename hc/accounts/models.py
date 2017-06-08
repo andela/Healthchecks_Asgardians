@@ -66,7 +66,7 @@ class Profile(models.Model):
         elif self.report_frequency == 'monthly':
             period = 30
 
-        self.next_report_date = now + timedelta(days=period)
+        self.next_report_date = now + timedelta(minutes=period)
         self.save()
 
         if self.reports_allowed:  # Check if user has requested reports
@@ -98,3 +98,13 @@ class Profile(models.Model):
 class Member(models.Model):
     team = models.ForeignKey(Profile)
     user = models.ForeignKey(User)
+
+# Model for team access checks and their respective scopes
+
+
+class CheckScope(models.Model):
+    check_code = models.UUIDField()
+    user = models.CharField(max_length=30)
+    pause_check = models.BooleanField(default=False)
+    see_logs = models.BooleanField(default=False)
+    remove_check = models.BooleanField(default=False)

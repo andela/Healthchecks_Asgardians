@@ -22,4 +22,24 @@ $(function(){
     });
 });
 
-console.log('I loaded!')
+$(document).on('change','.check-selected',function(){
+var row = $(this).closest('tr');
+var atLeastOneIsChecked = $('.check-selected:checked').length > 0;
+var emailField =  $('#itm-email').val();
+    if($(this).is(':checked'))
+    {
+      $(row).find('.scope').prop("disabled",false);
+      $(row).find('.scope').prop("checked",true);
+    }
+    else
+    {
+      $(row).find('.scope').prop("disabled",true);
+    }
+
+    if ((atLeastOneIsChecked) && !(emailField == "")){
+        $('.send-invite').prop("disabled", false)
+    }
+    else {
+        $('.send-invite').prop("disabled", true)
+    }
+});
