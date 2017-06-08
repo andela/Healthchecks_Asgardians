@@ -357,45 +357,6 @@
 <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
 <script src="{% static 'js/profile.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script>
-//$(function(){
-//    $('#send_report').change(function(){
-//        if ($(this).is(':checked')) {
-//            $('#frequency').show();
-//        }else{
-//           // $('#monthly').prop('checked', true);
-//            $('#frequency').hide();
-//        }
-//    });
-//    $('#checks-selected').change(function(){
-//        if ($(this).is(':checked')){
-//            $('#')
-//        }
-//
-//    });
-//});
-$(document).on('change','.check-selected',function(){
-var row = $(this).closest('tr');
-var atLeastOneIsChecked = $('.check-selected:checked').length > 0;
-var emailField =  $('#itm-email').val();
-    if($(this).is(':checked'))
-    {
-      $(row).find('.scope').prop("disabled",false);
-      $(row).find('.scope').prop("checked",true);
-    }
-    else
-    {
-      $(row).find('.scope').prop("disabled",true);
-    }
 
-    if ((atLeastOneIsChecked) && !(emailField == "")){
-        $('.send-invite').prop("disabled", false)
-    }
-    else {
-        $('.send-invite').prop("disabled", true)
-    }
-});
-
-</script>
 {% endcompress %}
 {% endblock %}
