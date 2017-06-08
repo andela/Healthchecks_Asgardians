@@ -12,21 +12,17 @@
         <th>Last Ping</th>
         <th></th>
     </tr>
-
     {% for check in checks_to_display %}
         {% if check in accessible_checks %}
-
             {% for check_scope in check_scopes %}
                 {% if check.code == check_scope.0.check_code %}
                     {% define check_scope.1 as scope %}
-                    {% include "front/checks_display.html" %}
+                    {% include "front/check_item_desktop.html" %}
                 {% endif %}
             {% endfor %}
-            {{ scope }}
         {% else %}
             {% define true_scope as scope %}
-            {% include "front/checks_display.html" %}
+            {% include "front/check_item_desktop.html" %}
         {% endif %}
     {% endfor %}
-
 </table>
