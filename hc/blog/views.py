@@ -15,3 +15,8 @@ def create_post(request):
     else:
         form = PostForm()
         return render(request, 'blog/create_post.html', {'form': form})
+
+
+def post_view(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'blog/blog_page.html', {'post': post})
