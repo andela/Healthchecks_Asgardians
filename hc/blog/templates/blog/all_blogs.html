@@ -115,7 +115,7 @@
                     <div class="post-data col-sm-7">
                         <div id="author">{{ post.author }}</div>
                         <div>
-                            <span id="date">{{ post.published_date |date:"M d, Y" }}</span><span id="length">{{ post.content|wordcount }} Words</span>
+                            <span id="date">{{ post.published_date |date:"M d, Y" }}</span><span id="length">{{ post.content|wordcount }} Word{{ post.content|wordcount|pluralize }}</span>
                         </div>
                     </div>
                 </div>
