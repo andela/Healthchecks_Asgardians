@@ -105,7 +105,7 @@ def badge(request, username, signature, tag):
             continue
 
         if check.get_status() == "often":
-            status = "often"
+            status = "down"
 
         elif status == "up" and check.in_grace_period():
             status = "late"
