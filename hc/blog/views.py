@@ -26,15 +26,9 @@ def post_view(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/blog_page.html', {'post': post})
 
-<<<<<<< HEAD
-def  blog_list(request):
-    ctx = {"page": "blog"}
-    return render(request, "blog/blog_list.html", ctx)
-
 def  view_blog(request):
     ctx = {"page": "blog"}
     return render(request, "blog/blog.html", ctx)
-=======
 
 def blogs(request):
     posts = list(Post.objects.all().order_by("-published_date"))
@@ -47,4 +41,3 @@ def blogs(request):
         "categories": CATEGORIES_DATA
     }
     return render(request, 'blog/all_blogs.html', ctx)
->>>>>>> f3653bbaf0e055518b179d7b7b0c754d04894488
