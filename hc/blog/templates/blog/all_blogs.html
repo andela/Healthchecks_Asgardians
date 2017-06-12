@@ -29,7 +29,7 @@
                 {% csrf_token %}
                 <div>
                     <h2>{{ latest.0.title }}</h2>
-                    <p>{{ latest.0.content|truncatechars:200 }}</p>
+                    <p>{{ latest.0.content|truncatewords:100 }}</p>
                     <span class="read-more"><a href="{{ latest.0.id }}">Read more...</a></span>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                 {% csrf_token %}
                 <div>
                     <h2>{{ latest.1.title }}</h2>
-                    <p>{{ latest.1.content| truncatechars:200 }}</p>
+                    <p>{{ latest.1.content| truncatewords:100 }}</p>
                     <span class="read-more"><a href="{{ latest.1.id }}">Read more...</a></span>
                 </div>
             </div>
@@ -108,14 +108,14 @@
         {% for post in posts %}
         <div class="col-sm-8">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <div class="author-pic col-sm-2">
                         <img src="{% static 'img/user-default.png'%}">
                     </div>
-                    <div class="post-data col-sm-2">
+                    <div class="post-data col-sm-7">
                         <div id="author">{{ post.author }}</div>
                         <div>
-                            <span id="date">{{ post.published_date }}</span><span id="length">Length</span>
+                            <span id="date">{{ post.published_date |date:"M d, Y" }}</span><span id="length">{{ post.content|wordcount }} Words</span>
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
             <h2>{{ post.title }}</h2>
             <div>
                 <div>
-                    <p> {{ post.content | truncatechars:200 }} </p>
+                    <p> {{ post.content | truncatewords:100 }} </p>
                     <span class="read-more"><a href="{{ post.id }}">Read more...</a></span>
                 </div>
             </div>
