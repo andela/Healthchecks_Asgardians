@@ -60,3 +60,7 @@
 .icon-settings:before {
   content: "\e8b8";
 }
+
+.icon-forward3:before {
+  content: "\26a1";
+}
