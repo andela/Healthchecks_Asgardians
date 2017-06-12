@@ -28,7 +28,7 @@ def post_view(request, pk):
 
 
 def blogs(request):
-    posts = list(Post.objects.all())
+    posts = list(Post.objects.all().order_by("-published_date"))
     latest = posts[:2]
     other_posts = posts[3:]
     ctx= {
