@@ -1,17 +1,8 @@
 # coding: utf-8
 
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import User
-#
-# CATEGORY_CHOICES = (
-#     ("design", "Design"),
-#     ("programming", "Programming"),
-#     ("new_technologies", "New Technologies"),
-#     ("ui/ux", "UI/UX"),
-#     ("cronjobs", "Cron_jobs"),
-#     ("others", "Others")
-# )
+
 
 
 class Category(models.Model):
@@ -31,7 +22,3 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-
-    # def published_date(self):
-    #     self.published_date = timezone.now()
-    #     self.save()
