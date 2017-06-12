@@ -45,11 +45,13 @@
 }
 #date {
     color: #1ea65a;
+    width: 80px;
 
 }
 #length{
     color: #1ea65a;
     margin-left: 20px;
+    width: 180px;
 }
 
 .cat-list li {
