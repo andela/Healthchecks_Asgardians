@@ -44,14 +44,14 @@
     color: #1ea65a;
 }
 #date {
-    color: #1ea65a;
+    color: darkgreen;
     width: 80px;
 
 }
-#length{
-    color: #1ea65a;
-    margin-left: 20px;
-    width: 180px;
+#length {
+    color: darkgreen;
+    margin-left: 10px;
+    width: 200px;
 }
 
 .cat-list li {
