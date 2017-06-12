@@ -1,4 +1,44 @@
-<form method="POST" class="post-form">{% csrf_token %}
-{{ form.as_p }}
-<button type="submit"> Save </button>
+{% extends "base.html" %}
+{% load compress staticfiles %}
+
+{% block title %}Write Post - healthchecks.io{% endblock %}
+{% compress css %}
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h1 class="top-bar">New Post</h1>
+    </div>
+</div>
+<form method="POST" class="post-form">
+    {% csrf_token %}
+    <div class="col-sm-12">
+        <h4>Author</h4>
+        <input type="text" id="field-box" name="author" value="{{ request.user.username }}">
+    </div>
+    <div class="col-sm-12">
+        <h4>Title</h4>
+        <input type="text" id="field-box" name="title" required>
+    </div>
+    <div class="col-sm-12">
+        <h4>Category</h4>
+        <select id="select-box" name="category">
+            <option value="">Select Category</option>
+            {% for option in categories %}
+            <option value={{ option }}>{{ option }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-sm-12">
+        <h4>Content</h4>
+        <textarea rows="15" cols="150" name="content" required></textarea>
+    </div>
+    <div class="col-sm-12">
+        <button class="btn btn-primary pull-right" id="cancel">Cancel</button>
+        <button class="btn btn-primary pull-right" type="submit" id="submit-btn">Save</button>
+    </div>
 </form>
+
+{% endblock %}
+{% endcompress %}

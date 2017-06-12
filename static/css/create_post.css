@@ -1,0 +1,27 @@
+#field-box {
+    margin-left: 40px;
+    width: 300px;
+}
+
+#select-box {
+    margin-left: 40px;
+    width: 300px;
+}
+
+textarea {
+    margin-left: 40px;
+    outline: none;
+    border: 1px solid #dddddd;
+}
+
+#submit-btn {
+    float: right;
+    margin-right: 30px;
+}
+
+#cancel {
+    float: right;
+    color: black;
+    background-color: white;
+    border-color: red;
+}

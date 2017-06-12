@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load compress staticfiles %}
+
+{% block title %}All Blogs - healthchecks.io{% endblock %}
+{% compress css %}
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-sm-6">
+            <h1 class="top-bar">All Blogs</h1>
+        </div>
+        {% if request.user.is_authenticated %}
+        <div class="write_post col-sm-6">
+            <a href={% url "create_post" %} class="btn text-right write_post">Write Post</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <h1 class="settings-title">Latest articles</h1>
+    </div>
+</div>
+<div class="row ">
+    <div class="col-md-12 border-between">
+        <div class="col-sm-6">
+            <div>
+                {% csrf_token %}
+                <div>
+                    <h2>{{ latest.0.title }}</h2>
+                    <p>{{ latest.0.content|truncatewords:100 }}</p>
+                    <span class="read-more"><a href="{{ latest.0.id }}">Read more...</a></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div>
+                {% csrf_token %}
+                <div>
+                    <h2>{{ latest.1.title }}</h2>
+                    <p>{{ latest.1.content| truncatewords:100 }}</p>
+                    <span class="read-more"><a href="{{ latest.1.id }}">Read more...</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <hr class = "line" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-sm-3 categories">
+            <h4>Categories</h4>
+            <ul class="cat-list">
+                {% for category in categories %}
+                <li><a href="#">{{ category }}</a></li>
+                {% endfor %}
+            </ul>
+            <div class="row">
+                <div class="col-sm-12">
+                    <hr class = "line" />
+                </div>
+            </div>
+            <div class="subscribe-email">
+                <h4>Subscribe</h4>
+                <span>Email<input id="email-box" type="text" name="sub-email"/></span>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <hr class = "line" />
+                </div>
+            </div>
+            <div>
+                <h4>Share</h4>
+                <div class="share-buttons">
+                    <!-- Email -->
+                    <a href="mailto:?Subject=Simple Share Buttons&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://healthchecks/blog/">
+                        <img src="https://simplesharebuttons.com/images/somacro/email.png" alt="Email" />
+                    </a>
+
+                    <!-- Facebook -->
+                    <a href="http://www.facebook.com/sharer.php?u=http://healthchecks/blog/" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+                    </a>
+
+                    <!-- Google+ -->
+                    <a href="https://plus.google.com/share?url=http://healthchecks/blog/" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/google.png" alt="Google" />
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://healthchecks/blog/" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/linkedin.png" alt="LinkedIn" />
+                    </a>
+
+                    <!-- Twitter -->
+                    <a href="https://twitter.com/share?url=http://healthchecks/blog/&amp;text=Simple%20Share%20Buttons&amp;hashtags=simplesharebuttons" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        {% for post in posts %}
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="author-pic col-sm-1">
+                        <img src="{% static 'img/user-default.png'%}">
+                    </div>
+                    <div class="post-data col-sm-7">
+                        <div id="author">{{ post.author }}</div>
+                        <div>
+                            <span id="date">{{ post.published_date |date:"M d, Y" }}</span><span id="length">{{ post.content|wordcount }} Word{{ post.content|wordcount|pluralize }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2>{{ post.title }}</h2>
+            <div>
+                <div>
+                    <p> {{ post.content | truncatewords:100 }} </p>
+                    <span class="read-more"><a href="{{ post.id }}">Read more...</a></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr class = "line" />
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+{% endcompress %}
