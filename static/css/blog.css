@@ -36,8 +36,13 @@
     max-height:100%;
 }
 
+#title {
+    color: darkgreen;
+    font-weight: 400;
+}
+
 .post-data {
-    margin-top: 40px;
+    margin-top: 20px;
 
 }
 #author {
