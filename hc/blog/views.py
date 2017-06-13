@@ -26,9 +26,11 @@ def post_view(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/blog_page.html', {'post': post})
 
-def  view_blog(request):
+
+def view_blog(request):
     ctx = {"page": "blog"}
-    return render(request, "blog/blog.html", ctx)
+    return render(request, "blog/blog_page.html", ctx)
+
 
 def blogs(request):
     posts = list(Post.objects.all().order_by("-published_date"))
