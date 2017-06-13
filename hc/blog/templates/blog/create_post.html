@@ -22,7 +22,7 @@
     </div>
     <div class="col-sm-12">
         <h4>Category</h4>
-        <select id="select-box" name="category">
+        <select id="select-box" name="category" required>
             <option value="">Select Category</option>
             {% for option in categories %}
             <option value={{ option }}>{{ option }}</option>

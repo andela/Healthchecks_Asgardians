@@ -30,7 +30,7 @@
                 <div>
                     <h2>{{ latest.0.title }}</h2>
                     <p>{{ latest.0.content|truncatewords:100 }}</p>
-                    <span class="read-more"><a href="{{ latest.0.id }}">Read more...</a></span>
+                    <span class="read-more"><a href="post/{{ latest.0.id }}/view/">Read more...</a></span>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
                 <div>
                     <h2>{{ latest.1.title }}</h2>
                     <p>{{ latest.1.content| truncatewords:100 }}</p>
-                    <span class="read-more"><a href="{{ latest.1.id }}">Read more...</a></span>
+                    <span class="read-more"><a href="post/{{ latest.1.id }}/view/">Read more...</a></span>
                 </div>
             </div>
         </div>
@@ -124,7 +124,7 @@
             <div>
                 <div>
                     <p> {{ post.content | truncatewords:100 }} </p>
-                    <span class="read-more"><a href="{{ post.id }}">Read more...</a></span>
+                    <span class="read-more"><a href="post/{{ post.id }}/view/">Read more...</a></span>
                 </div>
             </div>
             <div class="row">
